@@ -1,0 +1,28 @@
+Sub PreencherVerdadeFalso()
+    Dim ws As Worksheet
+    Dim ultimaLinha As Long
+    Dim colunaVerificacao As String
+    Dim colunaPreenchimento As String
+    Dim i As Long
+    
+    ' Defina as variáveis
+    Set ws = ThisWorkbook.Sheets("Nome_da_Sua_Planilha")
+    colunaVerificacao = "A" ' Coluna onde será verificado o valor
+    colunaPreenchimento = "B" ' Coluna onde será preenchido Verdade/Falso
+    
+    ' Encontra a última linha com dados na coluna de verificação
+    ultimaLinha = ws.Cells(ws.Rows.Count, colunaVerificacao).End(xlUp).Row
+    
+    ' Loop através de cada linha da coluna de verificação
+    For i = 2 To ultimaLinha ' Começa na linha 2, assumindo que a primeira linha é cabeçalho
+        ' Verifica se contém a palavra "azul"
+        If InStr(1, ws.Cells(i, colunaVerificacao).Value, "azul", vbTextCompare) > 0 Then
+            ws.Cells(i, colunaPreenchimento).Value = "Verdade"
+        ' Verifica se contém a palavra "vermelho"
+        ElseIf InStr(1, ws.Cells(i, colunaVerificacao).Value, "vermelho", vbTextCompare) > 0 Then
+            ws.Cells(i, colunaPreenchimento).Value = "Contém Vermelho"
+        Else
+            ws.Cells(i, colunaPreenchimento).Value = "Falso"
+        End If
+    Next i
+End Sub
